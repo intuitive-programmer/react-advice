@@ -1,0 +1,23 @@
+/*** MAIN LAYOUT ***/
+
+.main-layout {
+  height: 100%;
+}
+
+/*** ADVICE SLIP ***/
+
+.advice-slip {
+  height: 15em;
+  margin-bottom: 0.5em;
+  padding: 1em;
+  font-weight: 600;
+  background-color: $white;
+    @at-root #{&}--center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    @at-root #{&}--shadow {
+      @include box-shadow(0 0.125em 0.3125em rgba(0, 0, 0, 0.08), 0 0.125em 0.3125em rgba(0, 0, 0, 0.11));
+    }
+}
