@@ -1,8 +1,10 @@
 import React from 'react'
 
-const AdviceSlip = () => (
+const AdviceSlip = ({ adviceSlip }) => (
   <div className="advice-slip advice-slip--center advice-slip--shadow">
-    Advice Slip
+    <p>
+      {adviceSlip && adviceSlip.advice}
+    </p>
   </div>
 )
 
