@@ -16,6 +16,16 @@ body {
   box-sizing: border-box;
 }
 
+/*** COLOR THEME ***/
+
+$white: #fefefe;
+
+$primary-light: #eceff1;
+$primary-main: #546e7a;
+$primary-dark: #37474f;
+
+$transparent-grey: rgba(0, 0, 0, 0.08);
+
 /*** BOX SHADOW ***/
 
 @mixin box-shadow($params...) {
@@ -24,10 +34,21 @@ body {
   box-shadow: $params;
 }
 
+/*** TYPOGRAPHY ***/
+
+h3 {
+  margin-block-start: 0;
+  margin-block-end: 0.5em;
+}
+
 /*** PRIMARY LAYOUT ***/
 
 .primary-layout {
   height: 100vh;
+  background-color: $primary-light;
+    @at-root #{&}__main {
+      padding: 1em 0;
+    }
 }
 
 /*** NAV BAR ***/
@@ -35,6 +56,7 @@ body {
 .nav-bar {
   width: 100%;
   height: 3em;
+  background-color: $white;
     @at-root #{&}--center {
       display: flex;
       justify-content: space-around;
@@ -53,12 +75,38 @@ body {
       font-size: 0.875em;
       font-weight: 600;
       &:hover {
-        background-color: rgba(0, 0, 0, 0.08);
+        background-color: $transparent-grey;
         }
     }
     @at-root #{&}__title {
       margin-block-start: 0;
       margin-block-end: 0;
       font-size: 1.25em;
+    }
+}
+
+/*** HOME PAGE STYLES ***/
+
+.home-page__heading {
+  margin-block-start: 1.5em;
+  color: $primary-dark;
+}
+
+.versions-list {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+    @at-root #{&}--link {
+      text-decoration: none;
+    }
+    @at-root #{&}__item {
+      padding: 0.5em 1em;
+      color: $primary-main;
+      font-weight: 600;
+      &:hover {
+        color: $primary-dark;
+        background-color: $transparent-grey;
+      }
     }
 }
