@@ -8,7 +8,7 @@
 
 .advice-slip {
   height: 15em;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   padding: 1em;
   font-weight: 600;
   background-color: $white;
@@ -19,5 +19,31 @@
     }
     @at-root #{&}--shadow {
       @include box-shadow(0 0.125em 0.3125em rgba(0, 0, 0, 0.08), 0 0.125em 0.3125em rgba(0, 0, 0, 0.11));
+    }
+}
+
+.advice-slip-nav {
+  margin-bottom: 0.5em;
+    @at-root #{&}--center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    @at-root #{&}__btn {
+      min-width: 3.5em;
+      margin: 0 0.25em;
+      padding: 0.25em 1em;
+      border: 1px solid $primary-main;
+      border-radius: 0.5em;
+      outline: none;
+      color: $primary-main;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.875em;
+      font-weight: 600;
+      background-color: transparent;
+        &:hover {
+          color: $primary-dark;
+          background-color: #b0bec5;
+        }
     }
 }

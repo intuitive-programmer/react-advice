@@ -74,8 +74,8 @@ h3 {
       font-family: 'Courier New', Courier, monospace;
       font-size: 0.875em;
       font-weight: 600;
-      &:hover {
-        background-color: $transparent-grey;
+        &:hover {
+          background-color: $transparent-grey;
         }
     }
     @at-root #{&}__title {
@@ -104,10 +104,10 @@ h3 {
       padding: 0.5em 1em;
       color: $primary-main;
       font-weight: 600;
-      &:hover {
-        color: $primary-dark;
-        background-color: $transparent-grey;
-      }
+        &:hover {
+          color: $primary-dark;
+          background-color: $transparent-grey;
+        }
     }
 }
 

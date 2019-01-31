@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { Grid } from '../../components/grid'
 import AdviceSlip from './components/AdviceSlip'
+import AdviceSlipNav from './components/AdviceSlipNav'
 
 class SimpleReact extends Component {
   render() {
@@ -9,6 +10,7 @@ class SimpleReact extends Component {
       <div className="main-layout">
         <Grid>
           <AdviceSlip />
+          <AdviceSlipNav />
         </Grid>
       </div>
     )
