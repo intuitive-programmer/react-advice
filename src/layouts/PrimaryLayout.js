@@ -1,10 +1,10 @@
 import React from 'react'
 
+import NavBar from '../components/ui/NavBar'
+
 const PrimaryLayout = () => (
   <div className="primary-layout">
-    <header>
-      Header
-    </header>
+    <NavBar />
     <main>
       Main
     </main>
