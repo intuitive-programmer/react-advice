@@ -9,7 +9,8 @@ import AdviceSlipNav from './components/AdviceSlipNav'
 class SimpleReact extends Component {
   state = {
     adviceSlipIndex: 0,
-    adviceSlips: []
+    adviceSlips: [],
+    savedAdvice: []
   }
 
   componentDidMount() {
@@ -52,6 +53,24 @@ class SimpleReact extends Component {
     this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
   }
 
+  saveAdviceSlip = () => {
+    const { adviceSlipIndex, adviceSlips, savedAdvice } = this.state
+
+    const currentAdviceSlip = adviceSlips[adviceSlipIndex]
+    
+    const alreadySaved = savedAdvice
+      .find(slip => slip.slip_id === currentAdviceSlip.slip_id)
+
+    if (alreadySaved) return
+
+    const updatedSavedAdvice = [...savedAdvice, currentAdviceSlip]
+
+    this.setState({ savedAdvice: updatedSavedAdvice })
+
+    localStorage
+      .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
+  }
+
   render() {
     const { adviceSlipIndex, adviceSlips } = this.state
     const adviceSlip = adviceSlips[adviceSlipIndex]
@@ -62,6 +81,7 @@ class SimpleReact extends Component {
           <AdviceSlipNav
             getPreviousAdviceSlip={this.getPreviousAdviceSlip}
             getNextAdviceSlip={this.getNextAdviceSlip}
+            saveAdviceSlip={this.saveAdviceSlip}
           />
         </Grid>
       </div>
