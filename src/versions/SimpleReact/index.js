@@ -8,7 +8,7 @@ import AdviceSlipNav from './components/AdviceSlipNav'
 
 class SimpleReact extends Component {
   state = {
-    adviceSlip: null,
+    adviceSlipIndex: 0,
     adviceSlips: []
   }
 
@@ -29,19 +29,40 @@ class SimpleReact extends Component {
       this.getRandomAdviceSlip()
     } else {
       this.setState(state => ({
-        adviceSlip,
         adviceSlips: [...state.adviceSlips, adviceSlip]
       }))
     }
   }
 
+  getPreviousAdviceSlip = () => {
+    const { adviceSlipIndex } = this.state
+    
+    if (adviceSlipIndex > 0) {
+      this.setState({ adviceSlipIndex: adviceSlipIndex - 1 })
+    }
+  }
+  
+  getNextAdviceSlip = () => {
+    const { adviceSlipIndex, adviceSlips } = this.state
+    
+    if (adviceSlipIndex === adviceSlips.length - 1) {
+      this.getAdviceSlip()
+    }
+    
+    this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
+  }
+
   render() {
-    const { adviceSlip } = this.state
+    const { adviceSlipIndex, adviceSlips } = this.state
+    const adviceSlip = adviceSlips[adviceSlipIndex]
     return(
       <div className="main-layout">
         <Grid>
           <AdviceSlip adviceSlip={adviceSlip} />
-          <AdviceSlipNav />
+          <AdviceSlipNav
+            getPreviousAdviceSlip={this.getPreviousAdviceSlip}
+            getNextAdviceSlip={this.getNextAdviceSlip}
+          />
         </Grid>
       </div>
     )

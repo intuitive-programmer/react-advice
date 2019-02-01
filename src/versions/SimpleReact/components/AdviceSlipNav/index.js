@@ -1,11 +1,15 @@
 import React from 'react'
 import Button from './Button';
 
-const AdviceSlipNav = () => (
+const AdviceSlipNav = ({ getPreviousAdviceSlip, getNextAdviceSlip }) => (
   <div className="advice-slip-nav advice-slip-nav--center">
-    <Button>Prev</Button>
+    <Button
+      onClick={getPreviousAdviceSlip}
+    >Prev</Button>
     <Button>Save</Button>
-    <Button>Next</Button>
+    <Button
+      onClick={getNextAdviceSlip}
+    >Next</Button>
   </div>
 )
 
