@@ -8,6 +8,7 @@ const Home = () => (
     <h3 className="home-page__heading">Versions of 'React Advice', take a look...</h3>
     <List>
       <Item path="/simple-react">Simple React</Item>
+      <Item path="/react-with-context">React with Context</Item>
     </List>
   </Grid>
 )
