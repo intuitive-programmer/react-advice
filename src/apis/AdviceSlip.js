@@ -11,10 +11,6 @@ class AdviceSlipAPI {
   static getRandomAdviceSlip() {
     return this.get(this.baseUrl)
   }
-
-  static getAdviceSlip(id) {
-    return this.get(this.baseUrl + '/' + id)
-  }
 }
 
 AdviceSlipAPI.init()
