@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
-import AdviceSlipAPI from '../../apis/AdviceSlip'
 import { Grid } from '../../components/grid'
+
+import { AdviceSlipProvider } from './contexts/AdviceSlip'
 
 import AdviceSlip from './components/AdviceSlip'
 import AdviceSlipNav from './components/AdviceSlipNav'
@@ -9,44 +10,12 @@ import SavedAdvice from './components/SavedAdvice'
 
 class ContextReact extends Component {
   state = {
-    adviceSlipIndex: 0,
-    adviceSlips: [],
-    isLoading: true,
-    error: null,
     savedAdvice: [],
     displaySavedAdviceSlip: false
   }
 
   componentDidMount() {
-    this.getAdviceSlip()
     this.hydrateStateWithLocalStorage()
-  }
-
-  getAdviceSlip = async () => {
-    const { adviceSlips } = this.state
-
-    try {
-      const adviceSlip = await AdviceSlipAPI
-        .getRandomAdviceSlip()
-        .then(data => data.slip) 
-      
-      const alreadyExists = adviceSlips
-        .find(slip => slip.slip_id === adviceSlip.slip_id)
-
-      if (alreadyExists) {
-        this.getAdviceSlip()
-      } else {
-        this.setState(state => ({
-          adviceSlips: [...state.adviceSlips, adviceSlip],
-          isLoading: false,
-        }))
-      }
-    } catch (error) {
-      this.setState({
-        isLoading: false,
-        error
-      })
-    }
   }
 
   hydrateStateWithLocalStorage = () => {
@@ -122,46 +91,32 @@ class ContextReact extends Component {
 
   render() {
     const {
-      adviceSlipIndex,
-      adviceSlips,
-      isLoading,
-      error,
       savedAdvice,
       displaySavedAdviceSlip
     } = this.state
-    
-    const adviceSlip = displaySavedAdviceSlip
-      ? displaySavedAdviceSlip
-      : adviceSlips[adviceSlipIndex]
-
-    const displayError = !displaySavedAdviceSlip
-      ? error
-      : false
 
     return(
-      <div className="main-layout">
-        <Grid>
-          <AdviceSlip
-            adviceSlip={adviceSlip}
-            isLoading={isLoading}
-            error={displayError}
-          />
-          <AdviceSlipNav
-            getPreviousAdviceSlip={this.getPreviousAdviceSlip}
-            getNextAdviceSlip={this.getNextAdviceSlip}
-            saveAdviceSlip={this.saveAdviceSlip}
-            displaySavedAdviceSlip={displaySavedAdviceSlip}
-            hideAdviceSlip={this.hideAdviceSlip}
-            deleteSavedAdviceSlip={this.deleteSavedAdviceSlip}
-          />
-        </Grid>
-        <Grid>
-          <SavedAdvice
-            savedAdvice={savedAdvice}
-            showAdviceSlip={this.showAdviceSlip}
-          />
-        </Grid>
-      </div>
+      <AdviceSlipProvider>
+        <div className="main-layout">
+          <Grid>
+            <AdviceSlip />
+            <AdviceSlipNav
+              getPreviousAdviceSlip={this.getPreviousAdviceSlip}
+              getNextAdviceSlip={this.getNextAdviceSlip}
+              saveAdviceSlip={this.saveAdviceSlip}
+              displaySavedAdviceSlip={displaySavedAdviceSlip}
+              hideAdviceSlip={this.hideAdviceSlip}
+              deleteSavedAdviceSlip={this.deleteSavedAdviceSlip}
+            />
+          </Grid>
+          <Grid>
+            <SavedAdvice
+              savedAdvice={savedAdvice}
+              showAdviceSlip={this.showAdviceSlip}
+            />
+          </Grid>
+        </div>
+      </AdviceSlipProvider>
     )
   }
 }
