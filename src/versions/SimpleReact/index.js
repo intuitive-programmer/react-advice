@@ -5,6 +5,7 @@ import { Grid } from '../../components/grid'
 
 import AdviceSlip from './components/AdviceSlip'
 import AdviceSlipNav from './components/AdviceSlipNav'
+import SavedAdvice from './components/SavedAdvice'
 
 class SimpleReact extends Component {
   state = {
@@ -15,6 +16,7 @@ class SimpleReact extends Component {
 
   componentDidMount() {
     this.getAdviceSlip()
+    this.hydrateStateWithLocalStorage()
   }
 
   getAdviceSlip = async () => {
@@ -32,6 +34,14 @@ class SimpleReact extends Component {
       this.setState(state => ({
         adviceSlips: [...state.adviceSlips, adviceSlip]
       }))
+    }
+  }
+
+  hydrateStateWithLocalStorage = () => {
+    const savedAdvice = localStorage.getItem("savedAdvice")
+
+    if (savedAdvice) {
+      this.setState({ savedAdvice: JSON.parse(savedAdvice) })
     }
   }
 
@@ -72,7 +82,7 @@ class SimpleReact extends Component {
   }
 
   render() {
-    const { adviceSlipIndex, adviceSlips } = this.state
+    const { adviceSlipIndex, adviceSlips, savedAdvice } = this.state
     const adviceSlip = adviceSlips[adviceSlipIndex]
     return(
       <div className="main-layout">
@@ -83,6 +93,9 @@ class SimpleReact extends Component {
             getNextAdviceSlip={this.getNextAdviceSlip}
             saveAdviceSlip={this.saveAdviceSlip}
           />
+        </Grid>
+        <Grid>
+          <SavedAdvice savedAdvice={savedAdvice} />
         </Grid>
       </div>
     )
