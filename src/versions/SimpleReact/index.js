@@ -67,12 +67,15 @@ class SimpleReact extends Component {
   
   getNextAdviceSlip = () => {
     const { adviceSlipIndex, adviceSlips } = this.state
+
+    const exists = adviceSlips[adviceSlipIndex + 1]
     
-    if (adviceSlipIndex === adviceSlips.length - 1) {
+    if (exists) {
+      this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
+    } else {
       this.getAdviceSlip()
+      this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
     }
-    
-    this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
   }
 
   saveAdviceSlip = () => {
