@@ -1,10 +1,12 @@
 import React from 'react'
 
-const AdviceSlip = ({ adviceSlip }) => (
+const AdviceSlip = ({ adviceSlip, isLoading, error }) => (
   <div className="advice-slip advice-slip--center advice-slip--shadow">
-    <p>
-      {adviceSlip && adviceSlip.advice}
-    </p>
+    {error && <p>{error.message}</p>}
+    {isLoading
+      ? <p>Loading...</p>
+      : <p>{adviceSlip && adviceSlip.advice}</p>
+    }
   </div>
 )
 

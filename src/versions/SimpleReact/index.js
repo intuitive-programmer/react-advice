@@ -11,6 +11,8 @@ class SimpleReact extends Component {
   state = {
     adviceSlipIndex: 0,
     adviceSlips: [],
+    isLoading: true,
+    error: null,
     savedAdvice: [],
     displaySavedAdviceSlip: false
   }
@@ -22,19 +24,28 @@ class SimpleReact extends Component {
 
   getAdviceSlip = async () => {
     const { adviceSlips } = this.state
-    const adviceSlip = await AdviceSlipAPI
-      .getRandomAdviceSlip()
-      .then(data => data.slip) 
-    
-    const alreadyExists = adviceSlips
-      .find(slip => slip.slip_id === adviceSlip.slip_id)
 
-    if (alreadyExists) {
-      this.getAdviceSlip()
-    } else {
-      this.setState(state => ({
-        adviceSlips: [...state.adviceSlips, adviceSlip]
-      }))
+    try {
+      const adviceSlip = await AdviceSlipAPI
+        .getRandomAdviceSlip()
+        .then(data => data.slip) 
+      
+      const alreadyExists = adviceSlips
+        .find(slip => slip.slip_id === adviceSlip.slip_id)
+
+      if (alreadyExists) {
+        this.getAdviceSlip()
+      } else {
+        this.setState(state => ({
+          adviceSlips: [...state.adviceSlips, adviceSlip],
+          isLoading: false,
+        }))
+      }
+    } catch (error) {
+      this.setState({
+        isLoading: false,
+        error
+      })
     }
   }
 
@@ -65,10 +76,12 @@ class SimpleReact extends Component {
   }
 
   saveAdviceSlip = () => {
-    const { adviceSlipIndex, adviceSlips, savedAdvice } = this.state
+    const { adviceSlipIndex, adviceSlips, savedAdvice, error } = this.state
 
     const currentAdviceSlip = adviceSlips[adviceSlipIndex]
     
+    if (error) return
+
     const alreadySaved = savedAdvice
       .find(slip => slip.slip_id === currentAdviceSlip.slip_id)
 
@@ -105,14 +118,31 @@ class SimpleReact extends Component {
   }
 
   render() {
-    const { adviceSlipIndex, adviceSlips, savedAdvice, displaySavedAdviceSlip } = this.state
+    const {
+      adviceSlipIndex,
+      adviceSlips,
+      isLoading,
+      error,
+      savedAdvice,
+      displaySavedAdviceSlip
+    } = this.state
+    
     const adviceSlip = displaySavedAdviceSlip
       ? displaySavedAdviceSlip
       : adviceSlips[adviceSlipIndex]
+
+    const displayError = !displaySavedAdviceSlip
+      ? error
+      : false
+
     return(
       <div className="main-layout">
         <Grid>
-          <AdviceSlip adviceSlip={adviceSlip} />
+          <AdviceSlip
+            adviceSlip={adviceSlip}
+            isLoading={isLoading}
+            error={displayError}
+          />
           <AdviceSlipNav
             getPreviousAdviceSlip={this.getPreviousAdviceSlip}
             getNextAdviceSlip={this.getNextAdviceSlip}
