@@ -11,7 +11,8 @@ class SimpleReact extends Component {
   state = {
     adviceSlipIndex: 0,
     adviceSlips: [],
-    savedAdvice: []
+    savedAdvice: [],
+    displaySavedAdviceSlip: false
   }
 
   componentDidMount() {
@@ -29,7 +30,7 @@ class SimpleReact extends Component {
       .find(slip => slip.slip_id === adviceSlip.slip_id)
 
     if (alreadyExists) {
-      this.getRandomAdviceSlip()
+      this.getAdviceSlip()
     } else {
       this.setState(state => ({
         adviceSlips: [...state.adviceSlips, adviceSlip]
@@ -81,9 +82,33 @@ class SimpleReact extends Component {
       .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
   }
 
+  deleteSavedAdviceSlip = () => {
+    const { displaySavedAdviceSlip, savedAdvice } = this.state
+
+    const updatedSavedAdvice = savedAdvice
+      .filter(slip => slip.slip_id !== displaySavedAdviceSlip.slip_id)
+
+    this.setState({ savedAdvice: updatedSavedAdvice })
+
+    localStorage
+      .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
+
+    this.hideAdviceSlip()
+  }
+
+  showAdviceSlip = adviceSlip => {
+    this.setState({ displaySavedAdviceSlip: adviceSlip })
+  }
+
+  hideAdviceSlip = () => {
+    this.setState({ displaySavedAdviceSlip: false })
+  }
+
   render() {
-    const { adviceSlipIndex, adviceSlips, savedAdvice } = this.state
-    const adviceSlip = adviceSlips[adviceSlipIndex]
+    const { adviceSlipIndex, adviceSlips, savedAdvice, displaySavedAdviceSlip } = this.state
+    const adviceSlip = displaySavedAdviceSlip
+      ? displaySavedAdviceSlip
+      : adviceSlips[adviceSlipIndex]
     return(
       <div className="main-layout">
         <Grid>
@@ -92,10 +117,16 @@ class SimpleReact extends Component {
             getPreviousAdviceSlip={this.getPreviousAdviceSlip}
             getNextAdviceSlip={this.getNextAdviceSlip}
             saveAdviceSlip={this.saveAdviceSlip}
+            displaySavedAdviceSlip={displaySavedAdviceSlip}
+            hideAdviceSlip={this.hideAdviceSlip}
+            deleteSavedAdviceSlip={this.deleteSavedAdviceSlip}
           />
         </Grid>
         <Grid>
-          <SavedAdvice savedAdvice={savedAdvice} />
+          <SavedAdvice
+            savedAdvice={savedAdvice}
+            showAdviceSlip={this.showAdviceSlip}
+          />
         </Grid>
       </div>
     )
