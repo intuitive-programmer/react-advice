@@ -12,6 +12,11 @@ export class AdviceSlipProvider extends Component {
     error: null
   }
 
+  actions = {
+    getPreviousAdviceSlip: () => this.getPreviousAdviceSlip(),
+    getNextAdviceSlip: () => this.getNextAdviceSlip()
+  }
+
   componentDidMount() {
     this.getAdviceSlip()
   }
@@ -43,10 +48,36 @@ export class AdviceSlipProvider extends Component {
     }
   }
 
+  getPreviousAdviceSlip = () => {
+    const { adviceSlipIndex } = this.state
+
+    if (adviceSlipIndex > 0) {
+      this.setState({ adviceSlipIndex: adviceSlipIndex - 1 })
+    }
+  }
+  
+  getNextAdviceSlip = () => {
+    const { adviceSlipIndex, adviceSlips } = this.state
+
+    const exists = adviceSlips[adviceSlipIndex + 1]
+    
+    if (exists) {
+      this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
+    } else {
+      this.getAdviceSlip()
+      this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
+    }
+  }
+
   render() {
     const { children } = this.props
     return(
-      <AdviceSlipContext.Provider value={{ state: this.state }}>
+      <AdviceSlipContext.Provider
+        value={{
+          state: this.state,
+          actions: this.actions
+        }}
+      >
         {children}
       </AdviceSlipContext.Provider>
     )

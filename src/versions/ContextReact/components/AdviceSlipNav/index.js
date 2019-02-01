@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import Button from './Button';
+import Button from './Button'
+import { AdviceSlipConsumer } from '../../contexts/AdviceSlip';
 
 class AdviceSlipNav extends Component {
   render() {
@@ -14,22 +15,26 @@ class AdviceSlipNav extends Component {
     )
   }
 
-  renderAdviceSlipBtns = () => {
-    const { getPreviousAdviceSlip, getNextAdviceSlip, saveAdviceSlip } = this.props
-    return(
-      <Fragment>
-        <Button
-          onClick={getPreviousAdviceSlip}
-        >Prev</Button>
-        <Button
-          onClick={saveAdviceSlip}
-        >Save</Button>
-        <Button
-          onClick={getNextAdviceSlip}
-        >Next</Button>
-      </Fragment>
-    )
-  }
+  renderAdviceSlipBtns = () => (
+    <AdviceSlipConsumer>
+      { context => {
+        const { getPreviousAdviceSlip, getNextAdviceSlip } = context.actions
+        return(
+          <Fragment>
+            <Button
+              onClick={getPreviousAdviceSlip}
+              >Prev</Button>
+            <Button
+              // onClick={saveAdviceSlip}
+              >Save</Button>
+            <Button
+              onClick={getNextAdviceSlip}
+              >Next</Button>
+          </Fragment>
+        )
+      }}
+    </AdviceSlipConsumer>
+  )
 
   renderSavedAdviceBtns = () => {
     const { deleteSavedAdviceSlip, hideAdviceSlip } = this.props

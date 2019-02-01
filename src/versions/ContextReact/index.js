@@ -26,27 +26,6 @@ class ContextReact extends Component {
     }
   }
 
-  getPreviousAdviceSlip = () => {
-    const { adviceSlipIndex } = this.state
-    
-    if (adviceSlipIndex > 0) {
-      this.setState({ adviceSlipIndex: adviceSlipIndex - 1 })
-    }
-  }
-  
-  getNextAdviceSlip = () => {
-    const { adviceSlipIndex, adviceSlips } = this.state
-
-    const exists = adviceSlips[adviceSlipIndex + 1]
-    
-    if (exists) {
-      this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
-    } else {
-      this.getAdviceSlip()
-      this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
-    }
-  }
-
   saveAdviceSlip = () => {
     const { adviceSlipIndex, adviceSlips, savedAdvice, error } = this.state
 
@@ -101,8 +80,6 @@ class ContextReact extends Component {
           <Grid>
             <AdviceSlip />
             <AdviceSlipNav
-              getPreviousAdviceSlip={this.getPreviousAdviceSlip}
-              getNextAdviceSlip={this.getNextAdviceSlip}
               saveAdviceSlip={this.saveAdviceSlip}
               displaySavedAdviceSlip={displaySavedAdviceSlip}
               hideAdviceSlip={this.hideAdviceSlip}
