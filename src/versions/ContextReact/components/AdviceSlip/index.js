@@ -5,19 +5,19 @@ import { AdviceSlipConsumer } from '../../contexts/AdviceSlip'
 const AdviceSlip = () => (
   <AdviceSlipConsumer>
     { context => {
-      const { adviceSlipIndex, adviceSlips, isLoading, error } = context.state
+      const { adviceSlipIndex, adviceSlips, isLoading, error, displaySavedAdviceSlip } = context.state
 
-      // const adviceSlip = state.displaySavedAdviceSlip
-      // ? state.displaySavedAdviceSlip
-      // : state.adviceSlips[state.adviceSlipIndex]
+      const adviceSlip = displaySavedAdviceSlip
+      ? displaySavedAdviceSlip
+      : adviceSlips[adviceSlipIndex]
 
-      const adviceSlip = adviceSlips[adviceSlipIndex]
-
-      // const displayError = !displaySavedAdviceSlip
+      const displayError = !displaySavedAdviceSlip
+        ? error
+        : null
 
       return(
         <div className="advice-slip advice-slip--center advice-slip--shadow">
-          {error && <p>{error.message}</p>}
+          {displayError && <p>{error.message}</p>}
           {isLoading
             ? <p>Loading...</p>
             : <p>{adviceSlip && adviceSlip.advice}</p>

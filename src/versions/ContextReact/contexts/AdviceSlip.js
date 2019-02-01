@@ -9,16 +9,23 @@ export class AdviceSlipProvider extends Component {
     adviceSlipIndex: 0,
     adviceSlips: [],
     isLoading: true,
-    error: null
+    error: null,
+    savedAdvice: [],
+    displaySavedAdviceSlip: false
   }
 
   actions = {
     getPreviousAdviceSlip: () => this.getPreviousAdviceSlip(),
-    getNextAdviceSlip: () => this.getNextAdviceSlip()
+    getNextAdviceSlip: () => this.getNextAdviceSlip(),
+    saveAdviceSlip: () => this.saveAdviceSlip(),
+    deleteSavedAdviceSlip: () => this.deleteSavedAdviceSlip(),
+    showAdviceSlip: adviceSlip => this.showAdviceSlip(adviceSlip),
+    hideAdviceSlip: () => this.hideAdviceSlip()
   }
 
   componentDidMount() {
     this.getAdviceSlip()
+    this.hydrateStateWithLocalStorage()
   }
 
   getAdviceSlip = async () => {
@@ -48,6 +55,14 @@ export class AdviceSlipProvider extends Component {
     }
   }
 
+  hydrateStateWithLocalStorage = () => {
+    const savedAdvice = localStorage.getItem("savedAdvice")
+
+    if (savedAdvice) {
+      this.setState({ savedAdvice: JSON.parse(savedAdvice) })
+    }
+  }
+
   getPreviousAdviceSlip = () => {
     const { adviceSlipIndex } = this.state
 
@@ -67,6 +82,48 @@ export class AdviceSlipProvider extends Component {
       this.getAdviceSlip()
       this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
     }
+  }
+
+  saveAdviceSlip = () => {
+    const { adviceSlipIndex, adviceSlips, savedAdvice, error } = this.state
+
+    const currentAdviceSlip = adviceSlips[adviceSlipIndex]
+    
+    if (error) return
+
+    const alreadySaved = savedAdvice
+      .find(slip => slip.slip_id === currentAdviceSlip.slip_id)
+
+    if (alreadySaved) return
+
+    const updatedSavedAdvice = [...savedAdvice, currentAdviceSlip]
+
+    this.setState({ savedAdvice: updatedSavedAdvice })
+
+    localStorage
+      .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
+  }
+
+  deleteSavedAdviceSlip = () => {
+    const { displaySavedAdviceSlip, savedAdvice } = this.state
+
+    const updatedSavedAdvice = savedAdvice
+      .filter(slip => slip.slip_id !== displaySavedAdviceSlip.slip_id)
+
+    this.setState({ savedAdvice: updatedSavedAdvice })
+
+    localStorage
+      .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
+
+    this.hideAdviceSlip()
+  }
+
+  showAdviceSlip = adviceSlip => {
+    this.setState({ displaySavedAdviceSlip: adviceSlip })
+  }
+
+  hideAdviceSlip = () => {
+    this.setState({ displaySavedAdviceSlip: false })
   }
 
   render() {
