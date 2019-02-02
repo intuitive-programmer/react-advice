@@ -1,7 +1,7 @@
 /*** PAGE STYLES ***/
 
 html, body, #root {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 body {
@@ -45,7 +45,7 @@ h3 {
 /*** PRIMARY LAYOUT ***/
 
 .primary-layout {
-  height: 100vh;
+  min-height: 100vh;
   background-color: $primary-light;
     @at-root #{&}__main {
       padding: 1em 0;
