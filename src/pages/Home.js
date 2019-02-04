@@ -9,6 +9,7 @@ const Home = () => (
     <List>
       <Item path="/simple-react">Simple React</Item>
       <Item path="/react-with-context">React with Context</Item>
+      <Item path="/react-with-compound-components">React with Compound Components</Item>
     </List>
   </Grid>
 )
