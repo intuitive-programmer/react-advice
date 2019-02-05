@@ -9,7 +9,9 @@ import AdviceSlipNav from './components/AdviceSlipNav'
 
 import TabLayout from '../../layouts/TabLayout'
 import Tab from './components/TabLayout/Tab'
+import Page from './components/TabLayout/Page'
 import SavedAdvice from './components/SavedAdvice'
+import CreateAdvice from './components/CreateAdvice'
 
 const CompoundComponentReact = () => (
   <AdviceSlipProvider>
@@ -21,9 +23,11 @@ const CompoundComponentReact = () => (
       <TabLayout>
         <TabLayout.Nav>
           <Tab label="Saved Advice" />
+          <Tab label="Create Advice" />
         </TabLayout.Nav>
         <TabLayout.Content>
-          <SavedAdvice />
+          <Page render={() => <SavedAdvice />} />
+          <Page render={() => <CreateAdvice />} />
         </TabLayout.Content>
       </TabLayout>
     </div>
