@@ -2,7 +2,7 @@ import React, { Component, createContext } from 'react'
 
 import AdviceSlipAPI from '../../../apis/AdviceSlip'
 
-const AdviceSlipContext = createContext({})
+export const AdviceSlipContext = createContext({})
 
 export class AdviceSlipProvider extends Component {
   state = {
@@ -17,6 +17,7 @@ export class AdviceSlipProvider extends Component {
   actions = {
     getPreviousAdviceSlip: () => this.getPreviousAdviceSlip(),
     getNextAdviceSlip: () => this.getNextAdviceSlip(),
+    createAdviceSlip: adviceSlip => this.createAdviceSlip(adviceSlip),
     saveAdviceSlip: () => this.saveAdviceSlip(),
     deleteSavedAdviceSlip: () => this.deleteSavedAdviceSlip(),
     showAdviceSlip: adviceSlip => this.showAdviceSlip(adviceSlip),
@@ -82,6 +83,17 @@ export class AdviceSlipProvider extends Component {
       this.getAdviceSlip()
       this.setState({ adviceSlipIndex: adviceSlipIndex + 1 })
     }
+  }
+
+  createAdviceSlip = adviceSlipToCreate => {
+    const { savedAdvice } = this.state
+
+    const updatedSavedAdvice = [...savedAdvice, adviceSlipToCreate]
+
+    this.setState({ savedAdvice: updatedSavedAdvice })
+
+    localStorage
+      .setItem("savedAdvice", JSON.stringify(updatedSavedAdvice))
   }
 
   saveAdviceSlip = () => {

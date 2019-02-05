@@ -1,10 +1,16 @@
 import React, { Component, createContext } from 'react'
 
+import { AdviceSlipContext } from '../../contexts/AdviceSlip'
+
+const slip_count = 0
+
 const FormContext = createContext({})
 
 const FormConsumer = FormContext.Consumer
 
 class AdviceSlipForm extends Component {
+  static contextType = AdviceSlipContext
+
   static Input = () => (
     <FormConsumer>
       {context => {
@@ -33,8 +39,14 @@ class AdviceSlipForm extends Component {
     event.preventDefault()
 
     const { adviceSlipInput } = this.state
+    const { createAdviceSlip } = this.context.actions
 
-    console.log("Submit", adviceSlipInput)
+    const adviceSlipToCreate = {
+      advice: adviceSlipInput,
+      slip_id: 'ps-' + slip_count,
+    }
+
+    createAdviceSlip(adviceSlipToCreate)
 
     event.target.reset()
   }
