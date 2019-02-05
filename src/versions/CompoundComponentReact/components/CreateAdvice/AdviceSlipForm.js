@@ -10,7 +10,11 @@ class AdviceSlipForm extends Component {
       {context => {
         const { handleInput } = context
         return (
-          <input type="text" onChange={handleInput} />
+          <textarea
+            className="advice-slip-form__input advice-slip-form__input--shadow"
+            onChange={handleInput}
+            placeholder="Write a bit of advice..."
+          />
         )
       }}
     </FormConsumer>
@@ -29,7 +33,7 @@ class AdviceSlipForm extends Component {
     return(
       <FormContext.Provider value={state}>
         <form
-          className="advice-slip-form"
+          className="advice-slip-form advice-slip-form--center"
           autoComplete="off"
           noValidate
         >

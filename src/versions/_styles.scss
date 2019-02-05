@@ -85,4 +85,23 @@
   width: 100%;
   height: 12em;
   padding: 0 1em;
+    @at-root #{&}--center {
+      display: flex;
+      justify-content: center;
+    }
+    @at-root #{&}__input {
+      width: 20em;
+      height: 10em;
+      padding: 2.5em 1em;
+      border: none;
+      resize: none;
+      outline: none;
+      text-align: center;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1em;
+      font-weight: 600;
+        @at-root #{&}--shadow {
+          @include box-shadow(0 0.125em 0.3125em rgba(0, 0, 0, 0.08), 0 0.125em 0.3125em rgba(0, 0, 0, 0.11));
+        }
+    }
 }
