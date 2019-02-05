@@ -87,11 +87,13 @@
   padding: 0 1em;
     @at-root #{&}--center {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
     }
     @at-root #{&}__input {
       width: 20em;
       height: 10em;
+      margin-bottom: 1em;
       padding: 2.5em 1em;
       border: none;
       resize: none;
@@ -102,6 +104,23 @@
       font-weight: 600;
         @at-root #{&}--shadow {
           @include box-shadow(0 0.125em 0.3125em rgba(0, 0, 0, 0.08), 0 0.125em 0.3125em rgba(0, 0, 0, 0.11));
+        }
+    }
+    @at-root #{&}__btn {
+      min-width: 3.5em;
+      margin-bottom: 1em;
+      padding: 0.25em 1em;
+      border: 1px solid $primary-main;
+      border-radius: 0.5em;
+      outline: none;
+      color: $primary-main;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.875em;
+      font-weight: 600;
+      background-color: transparent;
+        &:hover {
+          color: $primary-dark;
+          background-color: $primary-medium;
         }
     }
 }

@@ -6,6 +6,7 @@ const CreateAdvice = () => (
   <div className="create-advice">
     <AdviceSlipForm>
       <AdviceSlipForm.Input />
+      <AdviceSlipForm.Submit />
     </AdviceSlipForm>
   </div>
 )
