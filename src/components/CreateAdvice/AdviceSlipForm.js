@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react'
 
-import { AdviceSlipContext } from '../../contexts/AdviceSlip'
+import { AdviceSlipContext } from '../../context/AdviceSlip'
 
 const slip_count = 0
 

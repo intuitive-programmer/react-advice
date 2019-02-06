@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AdviceSlipConsumer } from '../../contexts/AdviceSlip'
+import { AdviceSlipConsumer } from '../../context/AdviceSlip'
 
 import List from './List'
 import Item from './Item'

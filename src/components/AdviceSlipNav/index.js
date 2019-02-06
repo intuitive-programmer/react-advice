@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import { AdviceSlipConsumer } from '../../contexts/AdviceSlip'
+import { AdviceSlipConsumer } from '../../context/AdviceSlip'
 
 import Button from './Button'
 

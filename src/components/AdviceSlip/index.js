@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AdviceSlipConsumer } from '../../contexts/AdviceSlip'
+import { AdviceSlipConsumer } from '../../context/AdviceSlip'
 
 const AdviceSlip = () => (
   <AdviceSlipConsumer>

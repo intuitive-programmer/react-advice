@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react'
 
-import AdviceSlipAPI from '../../../apis/AdviceSlip'
+import AdviceSlipAPI from '../apis/AdviceSlip'
 
 export const AdviceSlipContext = createContext({})
 

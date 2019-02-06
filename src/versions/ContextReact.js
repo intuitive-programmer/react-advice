@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { Grid } from '../../components/grid'
+import { AdviceSlipProvider } from '../context/AdviceSlip'
 
-import { AdviceSlipProvider } from './contexts/AdviceSlip'
+import { Grid } from '../components/grid'
 
-import AdviceSlip from './components/AdviceSlip'
-import AdviceSlipNav from './components/AdviceSlipNav'
-import SavedAdvice from './components/SavedAdvice'
+import AdviceSlip from '../components/AdviceSlip'
+import AdviceSlipNav from '../components/AdviceSlipNav'
+import SavedAdvice from '../components/SavedAdvice'
 
 const ContextReact = () => (
   <AdviceSlipProvider>
